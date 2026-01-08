@@ -24,7 +24,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
+
 
 .power-animation {
   font-size: 32px;
