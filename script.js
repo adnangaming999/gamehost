@@ -19,6 +19,7 @@ function applyAll() {
 
 // Fake live FPS animation
 setInterval(() => {
-  document.getElementById("fps").innerText =
-    Math.floor(55 + Math.random() * 10) + " FPS";
+  const fps = Math.floor(55 + Math.random() * 10);
+  const fpsEl = document.getElementById("fps");
+  if (fpsEl) fpsEl.innerText = fps + " FPS";
 }, 1000);
