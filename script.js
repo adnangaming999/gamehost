@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("overlay");
+  if (overlay) overlay.style.display = "none";
+});
+
 function showPopup(msg) {
   const toast = document.getElementById("toast");
   toast.innerText = msg;
