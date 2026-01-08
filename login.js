@@ -1,10 +1,9 @@
-const PASSWORD = "1234"; // CHANGE PASSWORD HERE
-
 function checkPassword() {
   const input = document.getElementById("password").value;
-  if (input === PASSWORD) {
-    window.location.href = "index.html";
+  if (input === "1234") {
+    sessionStorage.setItem("loggedIn", "true");
+    window.location.href = "dashboard.html";
   } else {
-    alert("❌ Wrong Password");
+    showPopup("Wrong Password ❌");
   }
 }
