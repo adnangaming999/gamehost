@@ -1,86 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FreeFire Performance Hub</title>
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<title>Free Fire Gaming Panel</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="animations.css">
 </head>
 <body>
-  <!-- LOCK / PASSWORD OVERLAY -->
-  <div id="lock" class="overlay" aria-hidden="false">
-    <div class="lock-card">
-      <div class="logo">
-        <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
-          <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff6b00"/><stop offset="1" stop-color="#ff3b3b"/></linearGradient></defs>
-          <rect rx="10" width="64" height="64" fill="url(#g)"></rect>
-          <text x="50%" y="58%" text-anchor="middle" font-size="28" fill="#fff" font-family="Arial" font-weight="700">FF</text>
-        </svg>
-      </div>
-      <h1 id="lockTitle">Enter Password</h1>
-      <input id="pw" type="password" placeholder="Password" autocomplete="current-password" />
-      <div class="lock-actions">
-        <button id="unlock" class="btn primary">Unlock</button>
-        <button id="createBtn" class="btn ghost" style="display:none">Create Password</button>
-      </div>
-      <p id="lockMsg" class="muted">Protect your booster with a password.</p>
-      <small class="muted">This is client-side protection only. Do not store secrets here.</small>
-    </div>
-  </div>
 
-  <!-- MAIN APP (hidden until unlocked) -->
-  <div id="app" class="app" style="display:none" aria-hidden="true">
-    <header class="hero">
-      <div class="hero-inner">
-        <h1>FreeFire Performance Hub</h1>
-        <p class="tag">Monitor • Boost • Launch</p>
-        <div class="hero-cta">
-          <button id="applyAll" class="btn big">Apply All & Launch Free Fire</button>
-        </div>
-      </div>
-    </header>
+<div class="glass-card dashboard">
 
-    <main class="container">
-      <section class="panel device">
-        <h2>Device Info</h2>
-        <ul class="info-list">
-          <li><strong>Name:</strong> <span id="deviceName">—</span></li>
-          <li><strong>RAM (approx):</strong> <span id="ram">—</span></li>
-          <li><strong>Storage (est):</strong> <span id="storage">—</span></li>
-          <li><strong>Live FPS:</strong> <span id="fps">—</span></li>
-        </ul>
-      </section>
+<h1>🔥 Free Fire Booster</h1>
 
-      <section class="panel controls">
-        <h2>Boost Modes</h2>
-        <div class="modes">
-          <button data-mode="normal" class="btn mode">Normal</button>
-          <button data-mode="better" class="btn mode">Better</button>
-          <button data-mode="extreme" class="btn mode danger">Extreme</button>
-        </div>
+<div class="stats">
+  <div class="stat">Device: <span>Android / PC</span></div>
+  <div class="stat">RAM Usage: <span id="ram">48%</span></div>
+  <div class="stat">Storage Free: <span>64GB</span></div>
+  <div class="stat">Temp: <span>37°C</span></div>
+</div>
 
-        <div class="toggles">
-          <label class="toggle"><input id="netBoost" type="checkbox"> Internet Boost</label>
-          <label class="toggle"><input id="gfxBoost" type="checkbox"> Graphics Boost</label>
-        </div>
+<h2>🚀 Performance Boost</h2>
+<div class="buttons">
+  <button onclick="setBoost('Normal')">Normal</button>
+  <button onclick="setBoost('Better')">Better</button>
+  <button onclick="setBoost('Extreme')">Extreme</button>
+</div>
 
-        <div class="fps-row">
-          <button id="maxFps" class="btn">Set Max FPS (119)</button>
-          <div class="hz-note muted">Max achievable depends on device & drivers</div>
-        </div>
+<h2>🎯 FPS Control</h2>
+<div class="fps-box">
+  <span id="fps">60 FPS</span>
+  <button onclick="maxFPS()">Max 119Hz</button>
+</div>
 
-        <div class="admin-row">
-          <button id="changePassword" class="btn ghost">Change Password</button>
-          <button id="clearStorage" class="btn ghost">Reset Local Data</button>
-        </div>
-      </section>
-    </main>
+<button class="apply-all" onclick="applyAll()">🔥 APPLY ALL 🔥</button>
 
-    <footer class="footer muted">
-      <div>FreeFire Performance Hub — simulated boosts only. Use HTTPS for best API support.</div>
-    </footer>
-  </div>
+</div>
 
-  <script src="script.js"></script>
+<div id="overlay" class="overlay hidden">
+  <div class="power-animation">BOOSTING...</div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
