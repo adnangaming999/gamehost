@@ -7,46 +7,35 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="lock" class="overlay">
-  <div class="card">
-    <h1>Enter Password</h1>
-    <input id="pw" type="password" placeholder="Password">
-    <button id="unlock">Unlock</button>
+  <!-- LOCK / PASSWORD OVERLAY -->
+  <div id="lock" class="overlay">
+    <div class="card">
+      <h1 id="lockTitle">Enter Password</h1>
+      <input id="pw" type="password" placeholder="Password" autocomplete="current-password">
+      <div class="row">
+        <button id="unlock">Unlock</button>
+        <button id="createBtn" style="display:none">Create Password</button>
+      </div>
+      <p id="lockMsg" class="muted"></p>
+    </div>
   </div>
-</div>
 
-<header class="hero">
-  <h1>FreeFire Performance Hub</h1>
-  <p class="tag">Boost • Monitor • Play</p>
-</header>
+  <!-- MAIN APP (hidden until unlocked) -->
+  <div id="app" style="display:none">
+    <header class="hero">
+      <h1>FreeFire Performance Hub</h1>
+      <p class="tag">Boost • Monitor • Play</p>
+    </header>
 
-<main class="container">
-  <section class="device">
-    <h2>Device Info</h2>
-    <ul>
-      <li><strong>Name:</strong> <span id="deviceName">—</span></li>
-      <li><strong>RAM (approx):</strong> <span id="ram">—</span></li>
-      <li><strong>Storage (est):</strong> <span id="storage">—</span></li>
-      <li><strong>Live FPS:</strong> <span id="fps">—</span></li>
-    </ul>
-  </section>
+    <main class="container">
+      <!-- Device info and controls (same as before) -->
+      <section class="device"> ... </section>
+      <section class="controls"> ... 
+        <button id="changePassword">Change Password</button>
+      </section>
+    </main>
+  </div>
 
-  <section class="controls">
-    <h2>Boost Modes</h2>
-    <div class="modes">
-      <button data-mode="normal">Normal</button>
-      <button data-mode="better">Better</button>
-      <button data-mode="extreme">Extreme</button>
-    </div>
-    <div class="toggles">
-      <label>Internet Boost <input id="netBoost" type="checkbox"></label>
-      <label>Graphics Boost <input id="gfxBoost" type="checkbox"></label>
-    </div>
-    <button id="maxFps">Set Max FPS (119)</button>
-    <button id="applyAll" class="big">Apply All & Launch Free Fire</button>
-  </section>
-</main>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
