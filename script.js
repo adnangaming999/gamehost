@@ -20,12 +20,15 @@ function maxFPS() {
 }
 
 function applyAll() {
-  document.getElementById("overlay").classList.remove("hidden");
+  const overlay = document.getElementById("overlay");
+  overlay.style.display = "flex";
+
   setTimeout(() => {
-    document.getElementById("overlay").classList.add("hidden");
+    overlay.style.display = "none";
     showPopup("All Settings Applied 🔥");
   }, 3000);
 }
+
 
 // FPS animation
 setInterval(() => {
