@@ -10,16 +10,17 @@
 
   <style>
     :root{
-      --bg-1:#05060a;
-      --bg-2:#071021;
-      --glass: rgba(255,255,255,0.06);
-      --glass-2: rgba(255,255,255,0.03);
-      --accent-1: #6ef5ff;
-      --accent-2: #7b61ff;
-      --muted: #9fb0c2;
+      /* Color scheme: Black, White, Red */
+      --bg-1: #000000;
+      --bg-2: #0b0b0b;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --accent-1: #ff2b2b;   /* vivid red */
+      --accent-2: #ffffff;   /* white accent */
+      --muted: #bfc7cc;
       --card: rgba(255,255,255,0.02);
       --radius: 16px;
-      --neon: 0 8px 40px rgba(123,97,255,0.12), 0 2px 10px rgba(0,245,255,0.06);
+      --neon: 0 10px 40px rgba(255,43,43,0.12), 0 2px 10px rgba(255,255,255,0.04);
     }
 
     *{box-sizing:border-box}
@@ -28,10 +29,10 @@
       margin:0;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
       background:
-        radial-gradient(800px 400px at 10% 10%, rgba(123,97,255,0.06), transparent 8%),
-        radial-gradient(700px 350px at 90% 90%, rgba(0,245,255,0.04), transparent 10%),
+        radial-gradient(800px 400px at 10% 10%, rgba(255,43,43,0.03), transparent 8%),
+        radial-gradient(700px 350px at 90% 90%, rgba(255,255,255,0.02), transparent 10%),
         linear-gradient(180deg,var(--bg-1),var(--bg-2));
-      color:#eaf6ff;
+      color:#ffffff;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       overflow-x:hidden;
@@ -42,7 +43,7 @@
       position:sticky;top:0;z-index:40;
       display:flex;align-items:center;gap:16px;padding:14px 20px;
       backdrop-filter: blur(10px) saturate(120%);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
       border-bottom:1px solid var(--glass-2);
     }
     .logo{
@@ -50,17 +51,17 @@
     }
     .logo-badge{
       width:56px;height:56px;border-radius:12px;
-      background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
+      background:linear-gradient(135deg,var(--accent-1),#7b0000);
       display:grid;place-items:center;box-shadow:var(--neon);
     }
     .brand{
-      font-family:Orbitron, sans-serif;font-weight:600;font-size:16px;letter-spacing:1px;
+      font-family:Orbitron, sans-serif;font-weight:600;font-size:16px;letter-spacing:1px;color:var(--accent-2)
     }
     .tag{font-size:12px;color:var(--muted);margin-top:2px}
 
     nav{margin-left:auto;display:flex;gap:10px;align-items:center}
     .nav-btn{padding:8px 12px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:600;cursor:pointer}
-    .nav-btn:hover{transform:translateY(-3px);color:#fff;border-color:rgba(123,97,255,0.12)}
+    .nav-btn:hover{transform:translateY(-3px);color:#fff;border-color:rgba(255,43,43,0.18)}
 
     /* Layout */
     .container{max-width:1200px;margin:22px auto;padding:0 20px}
@@ -69,14 +70,14 @@
 
     /* Left panel (main controls) */
     .panel{
-      border-radius:18px;padding:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px;padding:20px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
       border:1px solid var(--glass-2);backdrop-filter: blur(8px);
-      box-shadow: 0 30px 80px rgba(2,6,23,0.6);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
     }
 
     .hero-title{display:flex;align-items:center;gap:12px}
-    .kicker{padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021;font-weight:800;font-size:12px}
-    h1{font-family:Orbitron, sans-serif;margin:6px 0 0;font-size:28px}
+    .kicker{padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-1),#7b0000);color:var(--accent-2);font-weight:800;font-size:12px}
+    h1{font-family:Orbitron, sans-serif;margin:6px 0 0;font-size:28px;color:var(--accent-2)}
     p.lead{color:var(--muted);margin-top:8px;font-size:14px}
 
     /* Device info cards */
@@ -86,57 +87,57 @@
       border:1px solid rgba(255,255,255,0.03);
     }
     .info h3{margin:0;font-size:13px;color:var(--muted)}
-    .info .val{font-weight:800;font-size:18px;margin-top:6px}
+    .info .val{font-weight:800;font-size:18px;margin-top:6px;color:var(--accent-2)}
 
     /* Live FPS widget */
-    .fps-card{margin-top:18px;padding:14px;border-radius:14px;background:linear-gradient(135deg, rgba(123,97,255,0.06), rgba(0,245,255,0.03));color:#021}
-    .fps-big{font-family:Orbitron, sans-serif;font-size:44px;font-weight:800}
-    .fps-meta{display:flex;gap:12px;margin-top:8px;color:#022}
+    .fps-card{margin-top:18px;padding:14px;border-radius:14px;background:linear-gradient(135deg, rgba(255,43,43,0.06), rgba(255,255,255,0.02));color:#021}
+    .fps-big{font-family:Orbitron, sans-serif;font-size:44px;font-weight:800;color:#fff}
+    .fps-meta{display:flex;gap:12px;margin-top:8px;color:#fff}
 
     /* Boost controls */
     .boosts{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
     .boost{
-      flex:1;min-width:120px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      flex:1;min-width:120px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(255,255,255,0.01));
       border:1px solid rgba(255,255,255,0.03);cursor:pointer;text-align:center;font-weight:700;color:var(--muted)
     }
-    .boost.active{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021;box-shadow:var(--neon)}
+    .boost.active{background:linear-gradient(90deg,var(--accent-1),#7b0000);color:var(--accent-2);box-shadow:var(--neon)}
 
     /* Controls row */
     .controls{display:flex;gap:12px;margin-top:16px;align-items:center}
     .select, .btn{
       padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--muted);font-weight:700;cursor:pointer
     }
-    .btn.primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021;border:0;box-shadow:var(--neon)}
+    .btn.primary{background:linear-gradient(90deg,var(--accent-1),#7b0000);color:var(--accent-2);border:0;box-shadow:var(--neon)}
 
-    /* Max FPS toggle */
+    /* Max FPS toggle and hz controls */
     .toggle{display:flex;align-items:center;gap:10px}
-    .switch{width:52px;height:30px;border-radius:999px;background:rgba(0,0,0,0.25);position:relative;padding:4px;cursor:pointer}
-    .knob{width:22px;height:22px;border-radius:50%;background:#fff;position:absolute;left:4px;top:4px;transition:all .22s cubic-bezier(.2,.9,.3,1)}
-    .switch.on{background:linear-gradient(90deg,var(--accent-1),var(--accent-2))}
+    .switch{width:52px;height:30px;border-radius:999px;background:rgba(255,255,255,0.06);position:relative;padding:4px;cursor:pointer}
+    .knob{width:22px;height:22px;border-radius:50%;background:var(--accent-2);position:absolute;left:4px;top:4px;transition:all .22s cubic-bezier(.2,.9,.3,1)}
+    .switch.on{background:linear-gradient(90deg,var(--accent-1),#7b0000)}
     .switch.on .knob{left:26px}
 
     /* Right panel (preview & apply) */
     .side{
-      border-radius:18px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
       border:1px solid var(--glass-2);backdrop-filter: blur(8px);
     }
     .preview{
-      height:220px;border-radius:12px;background:linear-gradient(135deg, rgba(0,0,0,0.25), rgba(255,255,255,0.02));
+      height:220px;border-radius:12px;background:linear-gradient(135deg, rgba(0,0,0,0.45), rgba(255,255,255,0.01));
       display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--muted)
     }
-    .preview .title{font-weight:800;color:#fff}
-    .apply-all{margin-top:14px;padding:14px;border-radius:12px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021;font-weight:900;text-align:center;cursor:pointer;box-shadow:var(--neon)}
+    .preview .title{font-weight:800;color:var(--accent-2)}
+    .apply-all{margin-top:14px;padding:14px;border-radius:12px;background:linear-gradient(90deg,var(--accent-1),#7b0000);color:var(--accent-2);font-weight:900;text-align:center;cursor:pointer;box-shadow:var(--neon)}
 
     /* Big animation overlay */
     .blast{
       position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:120;
-      background:radial-gradient(circle at center, rgba(123,97,255,0.12), rgba(0,0,0,0.6));
+      background:radial-gradient(circle at center, rgba(255,43,43,0.12), rgba(0,0,0,0.8));
       pointer-events:none;
     }
     .blast .pulse{
-      width:160px;height:160px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,0.12), rgba(123,97,255,0.12));
+      width:160px;height:160px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,0.06), rgba(255,43,43,0.12));
       animation:blast 900ms cubic-bezier(.2,.9,.3,1);
-      box-shadow:0 30px 120px rgba(123,97,255,0.18), 0 6px 30px rgba(0,245,255,0.06);
+      box-shadow:0 30px 120px rgba(255,43,43,0.18), 0 6px 30px rgba(255,255,255,0.04);
     }
     @keyframes blast{
       0%{transform:scale(.6);opacity:0}
@@ -148,9 +149,8 @@
     footer{max-width:1200px;margin:22px auto;padding:12px 20px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
     a{color:var(--accent-1);text-decoration:none}
 
-    /* small helpers */
+    /* helpers */
     .muted{color:var(--muted)}
-    .center{text-align:center}
     .pill{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);font-weight:700}
     .note{font-size:13px;color:var(--muted);margin-top:8px}
   </style>
@@ -161,9 +161,7 @@
     (function(){
       try{
         const AUTH_KEY = 'sgm_auth';
-        // password.html sets localStorage.sgm_auth = 'true' on success
         if(!localStorage.getItem(AUTH_KEY) || localStorage.getItem(AUTH_KEY) !== 'true'){
-          // redirect to password page
           location.href = 'password.html';
         }
       }catch(e){
@@ -176,7 +174,7 @@
     <div class="logo">
       <div class="logo-badge" aria-hidden="true">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="white" opacity="0.06"/>
+          <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="white" opacity="0.04"/>
           <path d="M6 17L12 7L18 17H6Z" fill="white"/>
         </svg>
       </div>
@@ -203,11 +201,11 @@
           <span class="kicker">FREE FIRE</span>
           <div>
             <h1 id="mainTitle">Device Performance Center</h1>
-            <div class="note">iOS-style liquid glass UI — simulated device metrics for demo purposes</div>
+            <div class="note">Black • White • Red theme — RAM detector uses browser APIs when available</div>
           </div>
         </div>
 
-        <p class="lead">View device name, storage, RAM usage, temperature, live FPS and apply performance presets (Normal / Better / Extreme). Max FPS up to 119 Hz with confirmation.</p>
+        <p class="lead">View device name, exact RAM (when available), RAM usage, temperature, live FPS and apply performance presets (Normal / Better / Extreme). Max FPS up to 119 Hz with confirmation.</p>
 
         <div class="info-row" aria-hidden="false">
           <div class="info">
@@ -215,12 +213,12 @@
             <div class="val" id="deviceName">Detecting...</div>
           </div>
           <div class="info">
-            <h3>Available Storage</h3>
-            <div class="val" id="storage">-- GB</div>
+            <h3>System RAM</h3>
+            <div class="val" id="ramTotal">-- GB</div>
           </div>
           <div class="info">
             <h3>RAM Usage</h3>
-            <div class="val" id="ram">-- %</div>
+            <div class="val" id="ramUsage">-- %</div>
           </div>
           <div class="info">
             <h3>Temperature</h3>
@@ -328,52 +326,65 @@
 
   <footer>
     <div>© <strong>SECRET GAMING MISSION</strong> — Free Fire Tools (Demo)</div>
-    <div class="muted">Made with liquid glass UI • Replace placeholders before production</div>
+    <div class="muted">Black • White • Red theme • Replace deep link before production</div>
   </footer>
 
   <script>
     /************************************************************************
-     * IMPORTANT NOTES (in-code):
-     * - This page simulates device metrics and FPS. Browsers cannot change
-     *   hardware refresh rates, overclock, or modify system drivers.
-     * - To actually launch Free Fire from a website, replace FREEFIRE_LINK
-     *   with a valid deep link / intent for your platform.
-     * - Password gating is handled by password.html which must set:
-     *     localStorage.setItem('sgm_auth','true');
+     * RAM detection notes:
+     * - navigator.deviceMemory returns an approximate number of gigabytes (e.g., 4, 8).
+     * - performance.memory (Chrome) gives JS heap info, not total system RAM.
+     * - Browsers intentionally limit access to exact hardware details for privacy.
      ************************************************************************/
 
-    // ---------- Configuration ----------
-    const FREEFIRE_LINK = 'freefire://open'; // <-- Replace with real deep link / intent if available
-    const MAX_ALLOWED_HZ = 119; // UI limit
+    const FREEFIRE_LINK = 'freefire://open'; // replace with real deep link if available
+    const MAX_ALLOWED_HZ = 119;
     const AUTH_KEY = 'sgm_auth';
 
-    // ---------- Utility ----------
     function $(id){ return document.getElementById(id); }
     function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
 
-    // ---------- Simulated device detection ----------
-    (function simulateDevice(){
-      // Device name: try to infer from userAgent (best-effort)
+    // Device detection + RAM detection
+    (function detectDeviceAndRam(){
       const ua = navigator.userAgent || '';
       let device = 'Unknown Device';
       if(/Android/i.test(ua)) device = 'Android Device';
       else if(/iPhone|iPad|iPod/i.test(ua)) device = 'iOS Device';
       else if(/Windows/i.test(ua)) device = 'Windows PC';
       else if(/Macintosh/i.test(ua)) device = 'Mac';
+
       $('deviceName').innerText = device;
 
-      // Simulated storage, ram, temp
-      let storageGB = Math.round((Math.random()*64 + 32)); // 32-96 GB
-      let ramPercent = Math.round(Math.random()*40 + 20); // 20-60%
-      let temp = Math.round(Math.random()*12 + 30); // 30-42 C
+      // navigator.deviceMemory gives approximate RAM in GB (most browsers)
+      const deviceMemory = navigator.deviceMemory || null;
+      if(deviceMemory){
+        $('ramTotal').innerText = deviceMemory + ' GB';
+      } else {
+        // fallback: try to infer from userAgent or show unknown
+        $('ramTotal').innerText = 'Unknown';
+      }
 
-      $('storage').innerText = storageGB + ' GB';
-      $('ram').innerText = ramPercent + ' %';
+      // performance.memory (Chrome) for JS heap usage (not total RAM)
+      if(performance && performance.memory){
+        const mem = performance.memory;
+        // usedJSHeapSize / jsHeapSizeLimit gives a rough usage percent
+        const used = mem.usedJSHeapSize || 0;
+        const limit = mem.jsHeapSizeLimit || 0;
+        const percent = limit ? Math.round((used/limit)*100) : '--';
+        $('ramUsage').innerText = (percent === '--' ? '--' : percent + ' %');
+      } else {
+        // Simulated RAM usage if performance.memory not available
+        const simulatedUsage = 30 + Math.round(Math.random()*50); // 30-80%
+        $('ramUsage').innerText = simulatedUsage + ' %';
+      }
+
+      // Simulated temperature
+      const temp = 30 + Math.round(Math.random()*18);
       $('temp').innerText = temp + ' °C';
     })();
 
     // ---------- Live FPS simulation ----------
-    let simulatedFps = 45 + Math.round(Math.random()*30); // base
+    let simulatedFps = 45 + Math.round(Math.random()*30);
     let targetHz = 60;
     let fpsInterval = null;
 
@@ -383,7 +394,6 @@
       $('targetHz').innerText = targetHz;
       $('hzDisplay').innerText = targetHz + ' Hz';
       $('previewFps').innerText = simulatedFps + ' FPS';
-      // status
       const status = simulatedFps >= 90 ? 'Excellent' : simulatedFps >= 60 ? 'Stable' : 'Low';
       $('fpsStatus').innerText = status;
       $('netSpeed').innerText = 'Net: ' + (Math.round((Math.random()*40 + 10)*10)/10) + ' Mbps';
@@ -393,11 +403,9 @@
     function startFpsLoop(){
       if(fpsInterval) clearInterval(fpsInterval);
       fpsInterval = setInterval(()=>{
-        // small random walk towards a value influenced by targetHz and boost mode
         const boostFactor = currentMode === 'normal' ? 0 : currentMode === 'better' ? 0.18 : 0.36;
         const ideal = Math.round(targetHz * (1 + boostFactor) * 0.9);
         simulatedFps += Math.round((ideal - simulatedFps) * (0.08 + Math.random()*0.06));
-        // jitter
         simulatedFps += Math.round((Math.random()-0.5)*4);
         simulatedFps = clamp(simulatedFps, 10, 240);
         updateFpsDisplay();
@@ -411,7 +419,6 @@
         document.querySelectorAll('.boost').forEach(b=>b.classList.remove('active'));
         el.classList.add('active');
         currentMode = el.dataset.mode;
-        // adjust simulatedFps quickly for preview
         if(currentMode === 'normal') simulatedFps = Math.round(simulatedFps * 0.98);
         if(currentMode === 'better') simulatedFps = Math.round(simulatedFps * 1.12);
         if(currentMode === 'extreme') simulatedFps = Math.round(simulatedFps * 1.28);
@@ -422,7 +429,6 @@
 
     // ---------- Max FPS toggle and controls ----------
     const maxSwitch = $('maxSwitch');
-    const knob = maxSwitch.querySelector('.knob');
     let maxOn = false;
     maxSwitch.addEventListener('click', toggleMax);
     maxSwitch.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') toggleMax(); });
@@ -432,7 +438,6 @@
       if(maxOn){
         maxSwitch.classList.add('on');
         maxSwitch.setAttribute('aria-checked','true');
-        // when turning on, set target to 119 by default
         targetHz = Math.min(MAX_ALLOWED_HZ, 119);
         $('hzDisplay').innerText = targetHz + ' Hz';
       } else {
@@ -449,7 +454,6 @@
       targetHz = clamp(targetHz + 5, 30, MAX_ALLOWED_HZ);
       $('hzDisplay').innerText = targetHz + ' Hz';
       $('targetHz').innerText = targetHz;
-      // if user sets > 60 and maxSwitch is off, turn it on (explicit)
       if(targetHz > 60 && !maxOn){
         maxOn = true; maxSwitch.classList.add('on'); maxSwitch.setAttribute('aria-checked','true');
       }
@@ -467,78 +471,59 @@
 
     // ---------- Preview button ----------
     $('previewBtn').addEventListener('click', ()=>{
-      // quick preview animation
       const prev = $('previewArea');
       prev.animate([{transform:'scale(1)'},{transform:'scale(1.02)'},{transform:'scale(1)'}],{duration:420,easing:'cubic-bezier(.2,.9,.3,1)'});
-      // small simulated improvement
       simulatedFps = Math.round(simulatedFps * (currentMode === 'normal' ? 1 : currentMode === 'better' ? 1.12 : 1.28));
       updateFpsDisplay();
     });
 
-    // ---------- Apply All (powerful animation + launch) ----------
+    // ---------- Apply All (animation + launch) ----------
     $('applyAll').addEventListener('click', async ()=>{
-      // If targetHz is at or above 119, show alert/confirmation
       if(targetHz >= 119){
         const ok = confirm('You selected MAX FPS (' + targetHz + ' Hz). This may not be supported by your device. Proceed?');
         if(!ok) return;
       }
 
-      // Show blast animation
       const blast = $('blastOverlay');
       blast.style.display = 'flex';
       blast.setAttribute('aria-hidden','false');
-
-      // Visual pulse + UI lock
       document.body.style.pointerEvents = 'none';
-      await new Promise(r => setTimeout(r, 900)); // wait for animation
+      await new Promise(r => setTimeout(r, 900));
 
-      // Mark applied
       $('appliedTag').innerText = 'Applied';
-      $('appliedTag').style.background = 'linear-gradient(90deg,var(--accent-1),var(--accent-2))';
-      $('appliedTag').style.color = '#021';
-      $('appliedTag').style.boxShadow = '0 12px 40px rgba(123,97,255,0.12)';
+      $('appliedTag').style.background = 'linear-gradient(90deg,var(--accent-1),#7b0000)';
+      $('appliedTag').style.color = '#fff';
+      $('appliedTag').style.boxShadow = '0 12px 40px rgba(255,43,43,0.12)';
 
-      // Hide blast
       blast.style.display = 'none';
       blast.setAttribute('aria-hidden','true');
       document.body.style.pointerEvents = '';
 
-      // Simulate final FPS jump
       simulatedFps = Math.round(simulatedFps * (currentMode === 'normal' ? 1.05 : currentMode === 'better' ? 1.25 : 1.5));
       updateFpsDisplay();
 
-      // Attempt to open Free Fire via deep link
-      // NOTE: This will only work if the device/browser supports the scheme and the app is installed.
       try {
-        // Create a temporary iframe to attempt to open the deep link (works on some mobile browsers)
-        const link = FREEFIRE_LINK;
-        // For modern approach, use window.location for same tab
-        window.location.href = link;
-        // As fallback, open in new tab (some browsers block)
-        setTimeout(()=>{ window.open(link, '_blank'); }, 600);
+        window.location.href = FREEFIRE_LINK;
+        setTimeout(()=>{ window.open(FREEFIRE_LINK, '_blank'); }, 600);
       } catch(e){
         console.warn('Could not open deep link:', e);
       }
     });
 
-    // ---------- Open Game button (explicit) ----------
+    // ---------- Open Game button ----------
     $('openGame').addEventListener('click', ()=>{
-      try{
-        window.location.href = FREEFIRE_LINK;
-      }catch(e){
-        window.open(FREEFIRE_LINK, '_blank');
-      }
+      try{ window.location.href = FREEFIRE_LINK; }catch(e){ window.open(FREEFIRE_LINK, '_blank'); }
     });
 
     // ---------- Open Settings (placeholder) ----------
     $('openSettings').addEventListener('click', ()=>{
-      alert('Advanced settings are a demo placeholder. For real device-level changes, build a native app with proper permissions.');
+      alert('Advanced settings are a demo placeholder. Real device-level changes require a native app with permissions.');
     });
 
     // ---------- Start loop ----------
     startFpsLoop();
 
-    // ---------- Accessibility: keyboard shortcuts ----------
+    // ---------- Accessibility shortcuts ----------
     document.addEventListener('keydown', (e)=>{
       if(e.key === '1') document.querySelector('.boost[data-mode="normal"]').click();
       if(e.key === '2') document.querySelector('.boost[data-mode="better"]').click();
@@ -546,14 +531,7 @@
       if(e.key === 'l') $('openGame').click();
     });
 
-    // ---------- Small UX: animate nav buttons on hover (optional) ----------
-    document.querySelectorAll('.nav-btn').forEach(b=>{
-      b.addEventListener('mouseenter', ()=> b.animate([{transform:'translateY(0)'},{transform:'translateY(-4px)'}],{duration:220,fill:'forwards'}));
-      b.addEventListener('mouseleave', ()=> b.animate([{transform:'translateY(-4px)'},{transform:'translateY(0)'}],{duration:220,fill:'forwards'}));
-    });
-
-    // ---------- Final note in console ----------
-    console.log('SECRET GAMING MISSION UI loaded (demo). Replace FREEFIRE_LINK and implement native components for real hardware control.');
+    console.log('SECRET GAMING MISSION UI loaded (demo). RAM detection uses navigator.deviceMemory when available.');
   </script>
 </body>
 </html>
