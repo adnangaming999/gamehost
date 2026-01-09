@@ -1,20 +1,559 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Secure Login</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SECRET GAMING MISSION — Free Fire Booster</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1:#05060a;
+      --bg-2:#071021;
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.03);
+      --accent-1: #6ef5ff;
+      --accent-2: #7b61ff;
+      --muted: #9fb0c2;
+      --card: rgba(255,255,255,0.02);
+      --radius: 16px;
+      --neon: 0 8px 40px rgba(123,97,255,0.12), 0 2px 10px rgba(0,245,255,0.06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(123,97,255,0.06), transparent 8%),
+        radial-gradient(700px 350px at 90% 90%, rgba(0,245,255,0.04), transparent 10%),
+        linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      color:#eaf6ff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:40;
+      display:flex;align-items:center;gap:16px;padding:14px 20px;
+      backdrop-filter: blur(10px) saturate(120%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-bottom:1px solid var(--glass-2);
+    }
+    .logo{
+      display:flex;align-items:center;gap:12px;
+    }
+    .logo-badge{
+      width:56px;height:56px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
+      display:grid;place-items:center;box-shadow:var(--neon);
+    }
+    .brand{
+      font-family:Orbitron, sans-serif;font-weight:600;font-size:16px;letter-spacing:1px;
+    }
+    .tag{font-size:12px;color:var(--muted);margin-top:2px}
+
+    nav{margin-left:auto;display:flex;gap:10px;align-items:center}
+    .nav-btn{padding:8px 12px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:600;cursor:pointer}
+    .nav-btn:hover{transform:translateY(-3px);color:#fff;border-color:rgba(123,97,255,0.12)}
+
+    /* Layout */
+    .container{max-width:1200px;margin:22px auto;padding:0 20px}
+    .grid{display:grid;grid-template-columns: 1fr 420px;gap:22px;align-items:start}
+    @media (max-width:980px){ .grid{grid-template-columns:1fr} }
+
+    /* Left panel (main controls) */
+    .panel{
+      border-radius:18px;padding:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid var(--glass-2);backdrop-filter: blur(8px);
+      box-shadow: 0 30px 80px rgba(2,6,23,0.6);
+    }
+
+    .hero-title{display:flex;align-items:center;gap:12px}
+    .kicker{padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021;font-weight:800;font-size:12px}
+    h1{font-family:Orbitron, sans-serif;margin:6px 0 0;font-size:28px}
+    p.lead{color:var(--muted);margin-top:8px;font-size:14px}
+
+    /* Device info cards */
+    .info-row{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .info{
+      flex:1;min-width:160px;padding:14px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .info h3{margin:0;font-size:13px;color:var(--muted)}
+    .info .val{font-weight:800;font-size:18px;margin-top:6px}
+
+    /* Live FPS widget */
+    .fps-card{margin-top:18px;padding:14px;border-radius:14px;background:linear-gradient(135deg, rgba(123,97,255,0.06), rgba(0,245,255,0.03));color:#021}
+    .fps-big{font-family:Orbitron, sans-serif;font-size:44px;font-weight:800}
+    .fps-meta{display:flex;gap:12px;margin-top:8px;color:#022}
+
+    /* Boost controls */
+    .boosts{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .boost{
+      flex:1;min-width:120px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);cursor:pointer;text-align:center;font-weight:700;color:var(--muted)
+    }
+    .boost.active{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021;box-shadow:var(--neon)}
+
+    /* Controls row */
+    .controls{display:flex;gap:12px;margin-top:16px;align-items:center}
+    .select, .btn{
+      padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--muted);font-weight:700;cursor:pointer
+    }
+    .btn.primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021;border:0;box-shadow:var(--neon)}
+
+    /* Max FPS toggle */
+    .toggle{display:flex;align-items:center;gap:10px}
+    .switch{width:52px;height:30px;border-radius:999px;background:rgba(0,0,0,0.25);position:relative;padding:4px;cursor:pointer}
+    .knob{width:22px;height:22px;border-radius:50%;background:#fff;position:absolute;left:4px;top:4px;transition:all .22s cubic-bezier(.2,.9,.3,1)}
+    .switch.on{background:linear-gradient(90deg,var(--accent-1),var(--accent-2))}
+    .switch.on .knob{left:26px}
+
+    /* Right panel (preview & apply) */
+    .side{
+      border-radius:18px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid var(--glass-2);backdrop-filter: blur(8px);
+    }
+    .preview{
+      height:220px;border-radius:12px;background:linear-gradient(135deg, rgba(0,0,0,0.25), rgba(255,255,255,0.02));
+      display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--muted)
+    }
+    .preview .title{font-weight:800;color:#fff}
+    .apply-all{margin-top:14px;padding:14px;border-radius:12px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021;font-weight:900;text-align:center;cursor:pointer;box-shadow:var(--neon)}
+
+    /* Big animation overlay */
+    .blast{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:120;
+      background:radial-gradient(circle at center, rgba(123,97,255,0.12), rgba(0,0,0,0.6));
+      pointer-events:none;
+    }
+    .blast .pulse{
+      width:160px;height:160px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,0.12), rgba(123,97,255,0.12));
+      animation:blast 900ms cubic-bezier(.2,.9,.3,1);
+      box-shadow:0 30px 120px rgba(123,97,255,0.18), 0 6px 30px rgba(0,245,255,0.06);
+    }
+    @keyframes blast{
+      0%{transform:scale(.6);opacity:0}
+      30%{transform:scale(1.2);opacity:1}
+      100%{transform:scale(12);opacity:0}
+    }
+
+    /* Footer */
+    footer{max-width:1200px;margin:22px auto;padding:12px 20px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+    a{color:var(--accent-1);text-decoration:none}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+    .pill{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);font-weight:700}
+    .note{font-size:13px;color:var(--muted);margin-top:8px}
+  </style>
 </head>
-<body class="login-bg">
+<body>
+  <!-- Security: redirect to password page if not authenticated -->
+  <script>
+    (function(){
+      try{
+        const AUTH_KEY = 'sgm_auth';
+        // password.html sets localStorage.sgm_auth = 'true' on success
+        if(!localStorage.getItem(AUTH_KEY) || localStorage.getItem(AUTH_KEY) !== 'true'){
+          // redirect to password page
+          location.href = 'password.html';
+        }
+      }catch(e){
+        console.error(e);
+      }
+    })();
+  </script>
 
-<div class="glass-card login-card">
-  <h1>🔒 Free Fire Access</h1>
-  <input type="password" id="password" placeholder="Enter Password">
-  <button onclick="checkPassword()">Unlock</button>
-</div>
+  <header>
+    <div class="logo">
+      <div class="logo-badge" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill="white" opacity="0.06"/>
+          <path d="M6 17L12 7L18 17H6Z" fill="white"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand">SECRET GAMING MISSION</div>
+        <div class="tag">Free Fire • Boosters • Live FPS • System Tools</div>
+      </div>
+    </div>
 
-<div id="toast" class="ios-toast hidden"></div>
+    <nav>
+      <button class="nav-btn">Dashboard</button>
+      <button class="nav-btn">Boosters</button>
+      <button class="nav-btn">Live FPS</button>
+      <button class="nav-btn">Settings</button>
+      <button class="nav-btn" onclick="localStorage.setItem('sgm_auth','');location.href='password.html'">Sign Out</button>
+    </nav>
+  </header>
 
-<script src="login.js"></script>
+  <main class="container">
+    <div class="grid">
+      <!-- Left: main controls -->
+      <section class="panel" aria-labelledby="mainTitle">
+        <div class="hero-title">
+          <span class="kicker">FREE FIRE</span>
+          <div>
+            <h1 id="mainTitle">Device Performance Center</h1>
+            <div class="note">iOS-style liquid glass UI — simulated device metrics for demo purposes</div>
+          </div>
+        </div>
+
+        <p class="lead">View device name, storage, RAM usage, temperature, live FPS and apply performance presets (Normal / Better / Extreme). Max FPS up to 119 Hz with confirmation.</p>
+
+        <div class="info-row" aria-hidden="false">
+          <div class="info">
+            <h3>Device</h3>
+            <div class="val" id="deviceName">Detecting...</div>
+          </div>
+          <div class="info">
+            <h3>Available Storage</h3>
+            <div class="val" id="storage">-- GB</div>
+          </div>
+          <div class="info">
+            <h3>RAM Usage</h3>
+            <div class="val" id="ram">-- %</div>
+          </div>
+          <div class="info">
+            <h3>Temperature</h3>
+            <div class="val" id="temp">-- °C</div>
+          </div>
+        </div>
+
+        <div class="fps-card" role="region" aria-label="Live FPS">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:13px;color:rgba(2,2,6,0.6)">Live FPS</div>
+              <div class="fps-big" id="fpsValue">--</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:13px;color:rgba(2,2,6,0.6)">Refresh Rate</div>
+              <div style="font-weight:800;font-size:20px" id="hzValue">60 Hz</div>
+            </div>
+          </div>
+          <div class="fps-meta">
+            <div class="pill" id="fpsStatus">Stable</div>
+            <div class="muted" id="netSpeed">Net: -- Mbps</div>
+            <div class="muted" id="gpuLoad">GPU: -- %</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;display:flex;align-items:center;justify-content:space-between">
+          <div style="font-weight:800">Performance Mode</div>
+          <div class="muted">Choose a preset</div>
+        </div>
+
+        <div class="boosts" role="tablist" aria-label="Boost modes">
+          <div class="boost active" data-mode="normal" role="tab" tabindex="0">Normal</div>
+          <div class="boost" data-mode="better" role="tab" tabindex="0">Better</div>
+          <div class="boost" data-mode="extreme" role="tab" tabindex="0">Extreme</div>
+        </div>
+
+        <div class="controls">
+          <div style="flex:1">
+            <div style="display:flex;gap:8px;align-items:center">
+              <div class="toggle">
+                <div style="font-weight:800">Max FPS</div>
+                <div id="maxSwitch" class="switch" role="switch" aria-checked="false" tabindex="0" style="margin-left:8px">
+                  <div class="knob"></div>
+                </div>
+              </div>
+              <div style="margin-left:8px" class="muted">Target: <strong id="targetHz">60</strong> Hz</div>
+            </div>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button class="select" id="hzMinus">-</button>
+              <div style="padding:12px 16px;border-radius:12px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.03);font-weight:800" id="hzDisplay">60 Hz</div>
+              <button class="select" id="hzPlus">+</button>
+            </div>
+          </div>
+
+          <div style="width:220px;text-align:right">
+            <div style="font-size:13px;color:var(--muted)">Graphics</div>
+            <select id="graphics" class="select" style="width:100%;margin-top:8px">
+              <option value="low">Low</option>
+              <option value="med" selected>Medium</option>
+              <option value="high">High</option>
+              <option value="ultra">Ultra</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:12px;align-items:center">
+          <button class="btn primary" id="applyAll">Apply All & Launch Free Fire</button>
+          <button class="btn" id="previewBtn">Preview Changes</button>
+        </div>
+
+        <div class="note">When Max FPS is set to a value higher than your device supports, a confirmation alert will appear. This demo simulates the flow; real hardware changes require native apps and permissions.</div>
+      </section>
+
+      <!-- Right: preview & quick actions -->
+      <aside class="side" aria-labelledby="previewTitle">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:13px;color:var(--muted)">Preview</div>
+            <div id="previewTitle" style="font-weight:800">Live Preview</div>
+          </div>
+          <div class="pill" id="appliedTag">Not Applied</div>
+        </div>
+
+        <div class="preview" id="previewArea" aria-live="polite">
+          <div class="title">Free Fire — Performance Snapshot</div>
+          <div style="font-size:28px;font-weight:900" id="previewFps">-- FPS</div>
+          <div class="muted" id="previewNote">Select a mode to see simulated improvements</div>
+        </div>
+
+        <div style="margin-top:12px">
+          <div style="display:flex;gap:8px">
+            <button class="btn" id="openGame">Open Free Fire</button>
+            <button class="btn" id="openSettings">Advanced Settings</button>
+          </div>
+
+          <div style="margin-top:12px" class="note">Live FPS counter uses a simulated loop for demo. To show real FPS on Android/PC you need a native overlay or in-game telemetry.</div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div class="blast" id="blastOverlay" aria-hidden="true">
+    <div class="pulse" role="img" aria-label="Applying settings animation"></div>
+  </div>
+
+  <footer>
+    <div>© <strong>SECRET GAMING MISSION</strong> — Free Fire Tools (Demo)</div>
+    <div class="muted">Made with liquid glass UI • Replace placeholders before production</div>
+  </footer>
+
+  <script>
+    /************************************************************************
+     * IMPORTANT NOTES (in-code):
+     * - This page simulates device metrics and FPS. Browsers cannot change
+     *   hardware refresh rates, overclock, or modify system drivers.
+     * - To actually launch Free Fire from a website, replace FREEFIRE_LINK
+     *   with a valid deep link / intent for your platform.
+     * - Password gating is handled by password.html which must set:
+     *     localStorage.setItem('sgm_auth','true');
+     ************************************************************************/
+
+    // ---------- Configuration ----------
+    const FREEFIRE_LINK = 'freefire://open'; // <-- Replace with real deep link / intent if available
+    const MAX_ALLOWED_HZ = 119; // UI limit
+    const AUTH_KEY = 'sgm_auth';
+
+    // ---------- Utility ----------
+    function $(id){ return document.getElementById(id); }
+    function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+
+    // ---------- Simulated device detection ----------
+    (function simulateDevice(){
+      // Device name: try to infer from userAgent (best-effort)
+      const ua = navigator.userAgent || '';
+      let device = 'Unknown Device';
+      if(/Android/i.test(ua)) device = 'Android Device';
+      else if(/iPhone|iPad|iPod/i.test(ua)) device = 'iOS Device';
+      else if(/Windows/i.test(ua)) device = 'Windows PC';
+      else if(/Macintosh/i.test(ua)) device = 'Mac';
+      $('deviceName').innerText = device;
+
+      // Simulated storage, ram, temp
+      let storageGB = Math.round((Math.random()*64 + 32)); // 32-96 GB
+      let ramPercent = Math.round(Math.random()*40 + 20); // 20-60%
+      let temp = Math.round(Math.random()*12 + 30); // 30-42 C
+
+      $('storage').innerText = storageGB + ' GB';
+      $('ram').innerText = ramPercent + ' %';
+      $('temp').innerText = temp + ' °C';
+    })();
+
+    // ---------- Live FPS simulation ----------
+    let simulatedFps = 45 + Math.round(Math.random()*30); // base
+    let targetHz = 60;
+    let fpsInterval = null;
+
+    function updateFpsDisplay(){
+      $('fpsValue').innerText = simulatedFps;
+      $('hzValue').innerText = targetHz + ' Hz';
+      $('targetHz').innerText = targetHz;
+      $('hzDisplay').innerText = targetHz + ' Hz';
+      $('previewFps').innerText = simulatedFps + ' FPS';
+      // status
+      const status = simulatedFps >= 90 ? 'Excellent' : simulatedFps >= 60 ? 'Stable' : 'Low';
+      $('fpsStatus').innerText = status;
+      $('netSpeed').innerText = 'Net: ' + (Math.round((Math.random()*40 + 10)*10)/10) + ' Mbps';
+      $('gpuLoad').innerText = 'GPU: ' + (40 + Math.round(Math.random()*50)) + ' %';
+    }
+
+    function startFpsLoop(){
+      if(fpsInterval) clearInterval(fpsInterval);
+      fpsInterval = setInterval(()=>{
+        // small random walk towards a value influenced by targetHz and boost mode
+        const boostFactor = currentMode === 'normal' ? 0 : currentMode === 'better' ? 0.18 : 0.36;
+        const ideal = Math.round(targetHz * (1 + boostFactor) * 0.9);
+        simulatedFps += Math.round((ideal - simulatedFps) * (0.08 + Math.random()*0.06));
+        // jitter
+        simulatedFps += Math.round((Math.random()-0.5)*4);
+        simulatedFps = clamp(simulatedFps, 10, 240);
+        updateFpsDisplay();
+      }, 700);
+    }
+
+    // ---------- Boost mode handling ----------
+    let currentMode = 'normal';
+    document.querySelectorAll('.boost').forEach(el=>{
+      el.addEventListener('click', ()=> {
+        document.querySelectorAll('.boost').forEach(b=>b.classList.remove('active'));
+        el.classList.add('active');
+        currentMode = el.dataset.mode;
+        // adjust simulatedFps quickly for preview
+        if(currentMode === 'normal') simulatedFps = Math.round(simulatedFps * 0.98);
+        if(currentMode === 'better') simulatedFps = Math.round(simulatedFps * 1.12);
+        if(currentMode === 'extreme') simulatedFps = Math.round(simulatedFps * 1.28);
+        startFpsLoop();
+      });
+      el.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') el.click(); });
+    });
+
+    // ---------- Max FPS toggle and controls ----------
+    const maxSwitch = $('maxSwitch');
+    const knob = maxSwitch.querySelector('.knob');
+    let maxOn = false;
+    maxSwitch.addEventListener('click', toggleMax);
+    maxSwitch.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') toggleMax(); });
+
+    function toggleMax(){
+      maxOn = !maxOn;
+      if(maxOn){
+        maxSwitch.classList.add('on');
+        maxSwitch.setAttribute('aria-checked','true');
+        // when turning on, set target to 119 by default
+        targetHz = Math.min(MAX_ALLOWED_HZ, 119);
+        $('hzDisplay').innerText = targetHz + ' Hz';
+      } else {
+        maxSwitch.classList.remove('on');
+        maxSwitch.setAttribute('aria-checked','false');
+        targetHz = 60;
+        $('hzDisplay').innerText = targetHz + ' Hz';
+      }
+      $('targetHz').innerText = targetHz;
+      startFpsLoop();
+    }
+
+    $('hzPlus').addEventListener('click', ()=>{
+      targetHz = clamp(targetHz + 5, 30, MAX_ALLOWED_HZ);
+      $('hzDisplay').innerText = targetHz + ' Hz';
+      $('targetHz').innerText = targetHz;
+      // if user sets > 60 and maxSwitch is off, turn it on (explicit)
+      if(targetHz > 60 && !maxOn){
+        maxOn = true; maxSwitch.classList.add('on'); maxSwitch.setAttribute('aria-checked','true');
+      }
+      startFpsLoop();
+    });
+    $('hzMinus').addEventListener('click', ()=>{
+      targetHz = clamp(targetHz - 5, 30, MAX_ALLOWED_HZ);
+      $('hzDisplay').innerText = targetHz + ' Hz';
+      $('targetHz').innerText = targetHz;
+      if(targetHz <= 60 && maxOn){
+        maxOn = false; maxSwitch.classList.remove('on'); maxSwitch.setAttribute('aria-checked','false');
+      }
+      startFpsLoop();
+    });
+
+    // ---------- Preview button ----------
+    $('previewBtn').addEventListener('click', ()=>{
+      // quick preview animation
+      const prev = $('previewArea');
+      prev.animate([{transform:'scale(1)'},{transform:'scale(1.02)'},{transform:'scale(1)'}],{duration:420,easing:'cubic-bezier(.2,.9,.3,1)'});
+      // small simulated improvement
+      simulatedFps = Math.round(simulatedFps * (currentMode === 'normal' ? 1 : currentMode === 'better' ? 1.12 : 1.28));
+      updateFpsDisplay();
+    });
+
+    // ---------- Apply All (powerful animation + launch) ----------
+    $('applyAll').addEventListener('click', async ()=>{
+      // If targetHz is at or above 119, show alert/confirmation
+      if(targetHz >= 119){
+        const ok = confirm('You selected MAX FPS (' + targetHz + ' Hz). This may not be supported by your device. Proceed?');
+        if(!ok) return;
+      }
+
+      // Show blast animation
+      const blast = $('blastOverlay');
+      blast.style.display = 'flex';
+      blast.setAttribute('aria-hidden','false');
+
+      // Visual pulse + UI lock
+      document.body.style.pointerEvents = 'none';
+      await new Promise(r => setTimeout(r, 900)); // wait for animation
+
+      // Mark applied
+      $('appliedTag').innerText = 'Applied';
+      $('appliedTag').style.background = 'linear-gradient(90deg,var(--accent-1),var(--accent-2))';
+      $('appliedTag').style.color = '#021';
+      $('appliedTag').style.boxShadow = '0 12px 40px rgba(123,97,255,0.12)';
+
+      // Hide blast
+      blast.style.display = 'none';
+      blast.setAttribute('aria-hidden','true');
+      document.body.style.pointerEvents = '';
+
+      // Simulate final FPS jump
+      simulatedFps = Math.round(simulatedFps * (currentMode === 'normal' ? 1.05 : currentMode === 'better' ? 1.25 : 1.5));
+      updateFpsDisplay();
+
+      // Attempt to open Free Fire via deep link
+      // NOTE: This will only work if the device/browser supports the scheme and the app is installed.
+      try {
+        // Create a temporary iframe to attempt to open the deep link (works on some mobile browsers)
+        const link = FREEFIRE_LINK;
+        // For modern approach, use window.location for same tab
+        window.location.href = link;
+        // As fallback, open in new tab (some browsers block)
+        setTimeout(()=>{ window.open(link, '_blank'); }, 600);
+      } catch(e){
+        console.warn('Could not open deep link:', e);
+      }
+    });
+
+    // ---------- Open Game button (explicit) ----------
+    $('openGame').addEventListener('click', ()=>{
+      try{
+        window.location.href = FREEFIRE_LINK;
+      }catch(e){
+        window.open(FREEFIRE_LINK, '_blank');
+      }
+    });
+
+    // ---------- Open Settings (placeholder) ----------
+    $('openSettings').addEventListener('click', ()=>{
+      alert('Advanced settings are a demo placeholder. For real device-level changes, build a native app with proper permissions.');
+    });
+
+    // ---------- Start loop ----------
+    startFpsLoop();
+
+    // ---------- Accessibility: keyboard shortcuts ----------
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === '1') document.querySelector('.boost[data-mode="normal"]').click();
+      if(e.key === '2') document.querySelector('.boost[data-mode="better"]').click();
+      if(e.key === '3') document.querySelector('.boost[data-mode="extreme"]').click();
+      if(e.key === 'l') $('openGame').click();
+    });
+
+    // ---------- Small UX: animate nav buttons on hover (optional) ----------
+    document.querySelectorAll('.nav-btn').forEach(b=>{
+      b.addEventListener('mouseenter', ()=> b.animate([{transform:'translateY(0)'},{transform:'translateY(-4px)'}],{duration:220,fill:'forwards'}));
+      b.addEventListener('mouseleave', ()=> b.animate([{transform:'translateY(-4px)'},{transform:'translateY(0)'}],{duration:220,fill:'forwards'}));
+    });
+
+    // ---------- Final note in console ----------
+    console.log('SECRET GAMING MISSION UI loaded (demo). Replace FREEFIRE_LINK and implement native components for real hardware control.');
+  </script>
 </body>
 </html>
